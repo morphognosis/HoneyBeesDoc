@@ -6,7 +6,7 @@
   title: "Morphognostic honey bees communicating nectar location through dance movements"
   description:
   authors:
-  - Thomas E. Portegys: http://tom.portegys.com
+  - Thomas E. Portegys: http://tom.portegys.com/research.html
   affiliations:
   - Dialectek: http://dialectek.com
 </script>
@@ -14,29 +14,133 @@
 <dt-article>
   <h1>Morphognostic honey bees communicating nectar location through dance movements</h1>
   <h2>Honey bees are social insects that forage for flower nectar cooperatively. When an individual
-  forager discovers a flower patch rich in nectar, it returns to the hive and performs a "dance" in 
+  forager discovers a flower patch rich in nectar, it returns to the hive and performs a "dance" in
   the vicinity of other bees that consists of movements communicating the direction and distance to 
   the nectar source. The bees that receive this information then fly to the location of the nectar to 
   retrieve it, thus cooperatively exploiting the environment. This project simulates this behavior in 
   a cellular automaton using the Morphognosis model. The model features hierarchical spatial and temporal 
   contexts that output motor responses from sensory inputs. Given a set of bee foraging and dancing 
   exemplars, and exposing only the external input-output of these behaviors to the Morphognosis learning 
-  algorithm, a hive of artificial bees can be generated that forage as their biological counterparts do.</h2>
+  algorithm, a hive of artificial bees can be generated that forage as their biological counterparts do.
+  <p>
+  <h3>Keywords: Honey bee foraging dance, artificial animal intelligence, Morphognosis, cellular automaton, artificial neural network.</h3></h2>
   <dt-byline></dt-byline>
-  <p>This is the first paragraph of the article.</p>
+  <h2>Introduction</h2>
+  <p>Honey bees, <i>apis mellifera</i>, are fascinating social insects. They are also smart, even able to count and add <dt-cite key="fox2019"></dt-cite>.
+  However, it is their ability to communicate symbolically in the form of a "dance" indicating the direction and distance
+  to a nectar source that is truly astonishing <dt-cite key="chittka2018"></dt-cite><dt-cite key="nosowitz2016"></dt-cite><dt-cite key="schurch2019"></dt-cite><dt-cite key="vonfrisch1967"></dt-cite>,
+  especially considering that the use of symbols is rare even in more neurologically complex animals. The dance, done
+  by a bee in the presence of other bees in the hive after discovering nectar at a locale outside the hive, recruits
+  bees to forage at the indicated location, thus acquiring more nectar than solitary foraging would otherwise.</p>
+  <p>This paper describes artificial honey bees that gather nectar and perform the foraging dance. It employs a general machine 
+  learning system, <i>Morphognosis</i>, which acquires behaviors by example and enables an artificial organism to express those behaviors.
+  It will be shown that simulating nectar foraging is a difficult task for unaugmented machine learning methods, but with the support 
+  of the spatial and temporal contextual information that Morphognosis provides, it can be accomplished.</p>
+  <p>As a disclaimer, it should be noted that this project is not intended to offer new or additional findings about honey bees. 
+  This is an artificial intelligence project, not a biology study. Its goal is to simulate a biologically inspired behavior in a 
+  dynamic environment. It is only functional, "black box" behaviors that are simulated; modeling internal mechanisms is not the aim here.</p>
+  <p>Honey bees have been the focus and inspiration for a number of simulation initiatives:</p>
+  <ul>
+  <li style="margin-bottom:0px;">Detailed colony behavior <dt-cite key="betti2017"></dt-cite>.</li>
+  <li style="margin-bottom:0px;">Swarming and group behavior algorithms <dt-cite key="karaboga2009"></dt-cite>.</li>
+  <li style="margin-bottom:0px;">Flight neural network <dt-cite key="cope2013"></dt-cite>.</li>
+  <li style="margin-bottom:0px;">Visual system neural network <dt-cite key="roper2017"></dt-cite>.</li>
+  <li style="margin-bottom:0px;">Odor learning circuits <dt-cite key="maboudi2017"></dt-cite>.</li>
+  <li style="margin-bottom:0px;">Spiking neural network that reacts to nectar <dt-cite key="fernando2015"></dt-cite>.</li>
+  </ul>
+  <p>The colony simulation allows a user to observe how bees are affected by various environmental conditions, such as weather. 
+  Algorithms for a number of group behaviors, optimal foraging strategies among them, are cited in the swarming paper.
+  The other projects simulate bee-specific neural mechanisms. For example, the odor learning project found that simulated honey 
+  bees lacking mushroom bodies, the insect equivalent of the cerebral cortex, may still be able to learn odors. The spiking 
+  neural network measures how an abstracted model of a bee's nervous system reacts to nectar-related stimuli.</p>
+  <p>In contrast, the contribution of this project is to simulate honey bee behavior with a general purpose connectionist model 
+  that learns from external observations and which is applicable to arbitrary behavioral simulation tasks, not just the honey 
+  bee foraging task.</p>
+  <p>A number of years ago I explained to a coworker how my dissertation program <dt-cite key="portegys1986"></dt-cite>, a model of instrumental/operant
+  conditioning, could learn various tasks through reinforcement. He then asked me how "smart" it was. I put him off, not having
+  a ready answer. He persisted. So I blurted out that it was as smart as a cockroach (which it is not). To which he replied,
+  "Don't we have enough real cockroaches?" Fast forward to this project. Don't we have enough real honey bees? (Maybe we don't <dt-cite key="oldroyd2007"></dt-cite>!)</p>
+  <p>The point of this story is that the question of why anyone should work on artificial animal intelligence is, at least on the surface, 
+  a reasonable one, given our species unique intellectual accomplishments. Thus, historically, AI has mostly focused on human-like 
+  intelligence, for which there are now innumerable success stories: games, self-driving cars, stock market forecasting, medical 
+  diagnostics, language translation, image recognition, etc. Yet the elusive goal of artificial general intelligence (AGI) seems as 
+  far off as ever. This is because these success stories lack the
+  "general" property of AGI, operating as they do within narrow, albeit deep, domains. A language translation application, for 
+  example, does just that and nothing else.</p>
+  <p>Anthony Zador <dt-cite key="zador2019"></dt-cite> expresses this succinctly: "We cannot build a machine capable of building a nest, or stalking prey, or
+  loading a dishwasher. In many ways, AI is far from achieving the intelligence of a dog or a mouse, or even of a spider, and it does 
+  not appear that merely scaling up current approaches will achieve these goals."</p>
+  <p>I am in the camp that believes that achieving general animal intelligence is a necessary, if not sufficient, path to AGI. While 
+  imbuing machines with abstract thought is a worthy goal, in humans there is a massive amount of ancient neurology that underlies 
+  this talent.</p>
+  <p>Hans Moravec put it thusly <dt-cite key="moravec1988"></dt-cite>: "Encoded in the large, highly evolved sensory and motor portions of the human brain is a billion
+  years of experience about the nature of the world and how to survive in it. The deliberate process we call reasoning is, I believe, 
+  the thinnest veneer of human thought, effective only because it is supported by this much older and much more powerful, though usually 
+  unconscious, sensorimotor knowledge. We are all prodigious Olympians in perceptual and motor areas, so good that we make the difficult 
+  look easy. Abstract thought, though, is a new trick, perhaps less than 100 thousand years old. We have not yet mastered it. It is not 
+  all that intrinsically difficult; it just seems so when we do it."</p>
+  <p>So how should we proceed? Emulating organisms at the level of neurons (whole-brain emulation) is a possible approach to understanding 
+  animal intelligence. However, efforts to do this with the human brain have met with little success <dt-cite key="yong2019"></dt-cite>. Scaling down to mice is
+  an option. The human brain dwarfs the mouse brain, but even mouse brains are daunting: a cubic milliliter of mouse cortex contains 
+  900,000 neurons and 700,000,000 synapses <dt-cite key="braitenberg1998"></dt-cite>. At much a simpler scale, years have been spent studying the 
+  relationship between the connectome of the nematode C. elegans <dt-cite key="wood1988"></dt-cite>, with only 302 neurons, and its behaviors, but even this
+  creature continues to surprise and elude full definition. Nevertheless, some researchers believe that it is now feasible for the 
+  whole-brain approach to be applied to insects such as the fruit fly, with its 135,000 neurons <dt-cite key="collins2019"></dt-cite>. Partial brain analysis
+  is also an option. For example, the navigation skills of honey bees are of value to drone technology. Fortunately, it appears that 
+  the modular nature of the honey bee brain can be leveraged to replicate this skill <dt-cite key="nott2018"></dt-cite>.</p>
+  <p>An issue with emulation, besides the complexity, is the difficulty of mapping the relationship between specific neural structures 
+  and behaviors <dt-cite key="krakauer2016"></dt-cite> <dt-cite key="yong2017"></dt-cite>. For AI, this is a key aspect, as behavior is the goal. Artifacts and quirks left
+  over by evolution introduce unnecessary complexity in neurological systems. Moreover, even a comprehensive emulation might defy description. 
+  Nature, always a blind tinkerer, has been known to work this way. For example, despite the enthusiasm following the mapping of the human 
+  genome, the mechanisms by which genes express proteins, and thus phenotypes, is not as modular as hoped for. Rather, it is extraordinarily 
+  complex <dt-cite key="wade2001"></dt-cite>.</p>
+  <p>The field of artificial life (Alife) offers another path to AGI. This path starts with simulating life, and letting evolution 
+  optimize artificial organisms to achieve intelligence as a fitness criteria. Sch&ouml;neburg's <dt-cite key="schoneburg2019"></dt-cite> "alternative path to AGI", sees
+  intelligence emerging from <i>holobionts</i>, which form cooperating collectives of artificial agents.</p>
+  <p>Another approach, one taken here, is to simulate AI at the behavioral, or functional, level. AI is no more constrained to adhere to 
+  biology than aeronautics is confined to bird flight. Considering the vastly different "clay" that biological and computing systems are
+  built with, cells vs. transistors and software, behavioral simulation offers another possible path to artificial intelligence.</p>
+  <p>Morphognosis comprises an artificial neural network (ANN) enhanced with a framework for organizing sensory events into hierarchical 
+  spatial and temporal contexts. Nature has hard-wired knowledge of space and time into the brain as way for it to effectively interact 
+  with the environment <dt-cite key="bellmund2018"></dt-cite> <dt-cite key="hainmuller2018"></dt-cite> <dt-cite key="lieff2015"></dt-cite> <dt-cite key="vorhees2014"></dt-cite>. These capabilities
+  are modeled by Morphognosis. Interestingly, grid cells also appear in humans to be capable of representing not only spatial relationships,
+  but non-spatial multidimensional ones, such as the relationships between members of a group of people <dt-cite key="bruner2018"></dt-cite> <dt-cite key="tavares2015"></dt-cite>.</p>
+  <p>The bee dancing behavior, as a sequential process, has temporal components. For example a bee must remember a past event, the existence 
+  of surplus nectar in a flower, and use that information to perform a dance that indicates both direction and distance to the nectar. 
+  In addition, bees that observe a dance must internally persist the distance signal and use it to measure how far to fly.</p>
+  <p>Sequential processes are type of task that recurrent artificial neural networks (RNNs) have been successfully applied 
+  to <dt-cite key="elman1990"></dt-cite> <dt-cite key="hochreiter1997"></dt-cite>. However, RNNs do not inherently also support spatial information. RNNs
+  maintain internal feedback that allow them to retain state information within the network over time. This contrasts with Morphognosis, 
+  where the input itself contains temporal state information.</p>
+  <p>Morphognosis was partly inspired by some what-if speculation. In simpler animals, the "old" brain (amygdala, hypothalamus, hippocampus,
+  etc.) deals more directly with an unfiltered here-and-now version of the environment. Considering nature's penchant for repurposing
+  existing capabilities, might it be that in more complex animals a purpose of the neocortex, sitting atop the old brain and filtering 
+  incoming sensory information, is to track events from distant reaches of space and time and render them, as though near and present, to 
+  the old brain whose primal functions have changed little over time?</p>
+  <p>The author has previously conducted research explorations into a number of issues that differentiate conventional AI from natural 
+  intelligence. These include context, motivation, plasticity, modularity, instinct, and surprise <dt-cite key="portegys2007"></dt-cite> <dt-cite key="portegys2010"></dt-cite> <dt-cite key="portegys2013"></dt-cite> <dt-cite key="portegys2015"></dt-cite>. 
+  Morphognosis, in particular, has been previously applied to the task of nest-building by a species of pufferfish <dt-cite key="portegys2019"></dt-cite>.</p>
+  <p>To date, including the honey bee project, Morphognosis has been implemented as a cellular 
+  automaton <dt-cite key="toffoli1987"></dt-cite> <dt-cite key="wolfram2002"></dt-cite>, as the rules that it develops while learning are ideally captured in a grid
+  structure. Conceptually, however, Morphognosis is not tied to the cellular automaton scheme.</p>
+  <p>The next section describes Morphognosis and details of the behavior and implementation of the honey bees. A section with the results 
+  of testing pertinent variables follows. A subsection also presents by way of comparison the performance of a recurrent neural network 
+  (see LSTM performance).</p>
+  <h2>Description</h2>
+  <h2>Results</h2>
+  <h2>Conclusion</h2>
   <img src="http://tom.portegys.com/research/morphognosis/waggledance.jpg" width=250 height=250>
-  <p>We can also cite <dt-cite key="yong2017"></dt-cite> <dt-cite key="zador2019"></dt-cite>external publications.</p>
 </dt-article>
 
 <dt-appendix>
 </dt-appendix>
 
 <script type="text/bibliography">
-  @article{bellmund2019,
+  @article{bellmund2018,
     title={Navigating cognition: Spatial codes for human thinking},
     author={Bellmund, J. L. S. and G&auml;rdenfors, P. and Moser, E. I. and Doeller, C. F.},
     journal={Science},
-    year={2019},
+    year={2018},
     url={https://science.sciencemag.org/content/362/6415/eaat6766}
   }
   @article{betti2017,
@@ -114,7 +218,7 @@
     url={https://doi.org/10.1038/s41586-018-0191-2}
   }
   @article{hochreiter1997,
-    title={Parallel emergence of stable and dynamic memory engrams in the hippocampus},
+    title={Long short-term memory},
     author={Hochreiter, S. and Schmidhuber, J.},
     journal={Neural Computation, 9(8), 1735-1780},
     year={1997}
@@ -125,11 +229,11 @@
     journal={Artificial Intelligence Review volume 31, Article number: 61},
     year={2009}
   }
-  @article{krakauer2017,
+  @article{krakauer2016,
     title={Neuroscience Needs Behavior: Correcting a Reductionist Bias},
     author={Krakauer, J. W. and Ghazanfar, A. A. and Gomez-Marin, A. and Maclver, M. A. and Poeppel, D.},
     journal={Neuron},
-    year={2017},
+    year={2016},
     url={https://doi.org/10.1016/j.neuron.2016.12.041}
   }
   @article{lieff2015,
@@ -138,7 +242,7 @@
     year={2015},
     url={http://jonlieffmd.com/blog/time-cells-organize-memory}
   }
-  @article{mamoudi2017,
+  @article{maboudi2017,
     title={Olfactory learning without the mushroom bodies: Spiking neural network models of the honeybee lateral antennal lobe tract reveal its capacities in odour memory tasks of varied complexities},
     author={MaBouDi, H. and Shimazaki, H. and Giurfa, M. and Chittka, L.},
     journal={PLOS Computational Biology; 13 (6)},
@@ -273,6 +377,13 @@
     author={Von Frisch, K.},
     journal={Harvard University Press. ISBN 9780674418776},
     year={1967}
+  }
+  @article{vorhees2014,
+    title={Assessing Spatial Learning and Memory in Rodents},
+    author={Vorhees, C. V. and Williams, M. T.},
+    journal={ILAR Journal. 55(2), 310-332},
+    year={2014},
+    url={http://doi.org/10.1093/ilar/ilu013}
   }
   @article{wade2001,
     title={Genome's Riddle: Few Genes, Much Complexity},
