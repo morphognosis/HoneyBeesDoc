@@ -36,9 +36,9 @@
   learning system, <i>Morphognosis</i>, which acquires behaviors by example and enables an artificial organism to express those behaviors.
   It will be shown that simulating nectar foraging is a difficult task for unaugmented machine learning methods, but with the support 
   of the spatial and temporal contextual information that Morphognosis provides, it can be accomplished.</p>
-  <p>As a disclaimer, it should be noted that this project is not intended to offer new or additional findings about honey bees. 
-  This is an artificial intelligence project, not a biology study. Its goal is to simulate a biologically inspired behavior in a 
-  dynamic environment. It is only functional, "black box" behaviors that are simulated; modeling internal mechanisms is not the aim here.</p>
+  <p>As a disclaimer, it should be noted that this project is not intended to offer new or additional findings about honey bees. Its goal 
+  is to simulate a biologically inspired behavior in a dynamic environment. If the convergence of nature and artifice at the behavioral 
+  level provides insights about biological mechanisms, that would be serendipitous.</p>
   <p>Honey bees have been the focus and inspiration for a number of simulation initiatives:</p>
   <ul>
   <li style="margin-bottom:0px;">Detailed colony behavior <dt-cite key="betti2017"></dt-cite>.</li>
@@ -88,18 +88,18 @@
   whole-brain approach to be applied to insects such as the fruit fly, with its 135,000 neurons <dt-cite key="collins2019"></dt-cite>. Partial brain analysis
   is also an option. For example, the navigation skills of honey bees are of value to drone technology. Fortunately, it appears that 
   the modular nature of the honey bee brain can be leveraged to replicate this skill <dt-cite key="nott2018"></dt-cite>.</p>
-  <p>An issue with emulation, besides the complexity, is the difficulty of mapping the relationship between specific neural structures 
-  and behaviors <dt-cite key="krakauer2016"></dt-cite> <dt-cite key="yong2017"></dt-cite>. For AI, this is a key aspect, as behavior is the goal. Artifacts and quirks left
-  over by evolution introduce unnecessary complexity in neurological systems. Moreover, even a comprehensive emulation might defy description. 
-  Nature, always a blind tinkerer, has been known to work this way. For example, despite the enthusiasm following the mapping of the human 
-  genome, the mechanisms by which genes express proteins, and thus phenotypes, is not as modular as hoped for. Rather, it is extraordinarily 
-  complex <dt-cite key="wade2001"></dt-cite>.</p>
-  <p>The field of artificial life (Alife) offers another path to AGI. This path starts with simulating life, and letting evolution 
-  optimize artificial organisms to achieve intelligence as a fitness criteria. Sch&ouml;neburg's <dt-cite key="schoneburg2019"></dt-cite> "alternative path to AGI", sees
+  <p>Another issue with emulation is the difficulty of mapping the relationship between neural structures and behaviors <dt-cite key="krakauer2016"></dt-cite> <dt-cite key="yong2017"></dt-cite>.
+  For AI, this is a key aspect, as behavior is the goal. Nature is a blind tinkerer.
+  For example, despite the enthusiasm following the mapping of the human genome, the mechanisms by which genes express proteins, 
+  and thus phenotypes, is not as modular as hoped for. Rather, it is extraordinarily complex <dt-cite key="wade2001"></dt-cite>. 
+  In artificial systems, artifacts and quirks left over by evolution can introduce unnecessary complexity.</p>
+  <p>The field of artificial life (Alife) offers another path to AGI. This path starts with simulating life, and letting evolution
+  optimize artificial organisms to achieve intelligence as a fitness criteria. For example, Sch&ouml;neburg's <dt-cite key="schoneburg2019"></dt-cite> "alternative path to AGI", sees
   intelligence emerging from <i>holobionts</i>, which form cooperating collectives of artificial agents.</p>
-  <p>Another approach, one taken here, is to simulate AI at the behavioral, or functional, level. AI is no more constrained to adhere to 
-  biology than aeronautics is confined to bird flight. Considering the vastly different "clay" that biological and computing systems are
-  built with, cells vs. transistors and software, behavioral simulation offers another possible path to artificial intelligence.</p>
+  <p>Morphognosis carries on the trend set by artificial neural networks to abstractly model neurological computing functions.
+  However, the approach is primarily to simulate at the behavioral level. Considering the vastly different "clay" that biological and
+  computing systems are built with, cells vs. transistors and software, behavioral simulation seems a good place to converge. 
+  I believe the famous Turing Test <dt-cite key="turing1950"></dt-cite> follows this line of thought.</p>
   <p>Morphognosis comprises an artificial neural network (ANN) enhanced with a framework for organizing sensory events into hierarchical 
   spatial and temporal contexts. Nature has hard-wired knowledge of space and time into the brain as way for it to effectively interact 
   with the environment <dt-cite key="bellmund2018"></dt-cite> <dt-cite key="hainmuller2018"></dt-cite> <dt-cite key="lieff2015"></dt-cite> <dt-cite key="vorhees2014"></dt-cite>. These capabilities
@@ -115,10 +115,10 @@
   <p>Morphognosis was partly inspired by some what-if speculation. In simpler animals, the "old" brain (amygdala, hypothalamus, hippocampus,
   etc.) deals more directly with an unfiltered here-and-now version of the environment. Considering nature's penchant for repurposing
   existing capabilities, might it be that in more complex animals a purpose of the neocortex, sitting atop the old brain and filtering 
-  incoming sensory information, is to track events from distant reaches of space and time and render them, as though near and present, to 
+  incoming sensory information, is to track events from distant reaches of space and time and render them, as though near and present, to
   the old brain whose primal functions have changed little over time?</p>
-  <p>The author has previously conducted research explorations into a number of issues that differentiate conventional AI from natural 
-  intelligence. These include context, motivation, plasticity, modularity, instinct, and surprise <dt-cite key="portegys2007"></dt-cite> <dt-cite key="portegys2010"></dt-cite> <dt-cite key="portegys2013"></dt-cite> <dt-cite key="portegys2015"></dt-cite>. 
+  <p>I have previously conducted research explorations into a number of issues that differentiate conventional AI from natural
+  intelligence. These include context, motivation, plasticity, modularity, instinct, and surprise <dt-cite key="portegys2007"></dt-cite> <dt-cite key="portegys2010"></dt-cite> <dt-cite key="portegys2013"></dt-cite> <dt-cite key="portegys2015"></dt-cite>.
   Morphognosis, in particular, has been previously applied to the task of nest-building by a species of pufferfish <dt-cite key="portegys2019"></dt-cite>.</p>
   <p>To date, including the honey bee project, Morphognosis has been implemented as a cellular 
   automaton <dt-cite key="toffoli1987"></dt-cite> <dt-cite key="wolfram2002"></dt-cite>, as the rules that it develops while learning are ideally captured in a grid
@@ -365,6 +365,13 @@
     journal={Neuron. Volume 87, Issue 1, P231-243},
     year={2015},
     url={https://doi.org/10.1016/j.neuron.2015.06.011}
+  }
+  @article{turing1950,
+    title={Computing Machinery and Intelligence},
+    author={Turing, A.},
+    journal={Mind. LIX (236): 433-460},
+    year={1950},
+    url={https://doi.org/10.1093/mind/LIX.236.433}
   }
   @article{toffoli1987,
     title={Cellular Automata Machines: A New Environment for Modeling},
