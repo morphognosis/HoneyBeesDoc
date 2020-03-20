@@ -37,7 +37,7 @@
   It will be shown that simulating nectar foraging is a difficult task for unaugmented machine learning methods, but with the support 
   of the spatial and temporal contextual information that Morphognosis provides, it can be accomplished.</p>
   <p>As a disclaimer, it should be noted that this project is not intended to offer new or additional findings about honey bees. Its goal 
-  is to simulate a biologically inspired behavior in a dynamic environment. If the convergence of nature and artifice at the behavioral 
+  is to simulate a biologically inspired behavior in a dynamic environment. If the convergence of nature and artifice at the behavioral
   level provides insights about biological mechanisms, that would be serendipitous.</p>
   <p>Honey bees have been the focus and inspiration for a number of simulation initiatives:</p>
   <ul>
@@ -127,9 +127,25 @@
   of testing pertinent variables follows. A subsection also presents by way of comparison the performance of a recurrent neural network 
   (see LSTM performance).</p>
   <h2>Description</h2>
+  <img src="images/figure1.png" style="position:relative; left:190px;" />
+  <p style="position:relative; left:160px;">Figure 1 - Morphognostic event cone.</p>
   <h2>Results</h2>
   <h2>Conclusion</h2>
-  <img src="http://tom.portegys.com/research/morphognosis/waggledance.jpg" width=250 height=250>
+  <p>The brain, a complex structure resulting from millions of years of evolution, can be viewed as a solution to problems posed by an
+  environment existing in space and time. Internal spatial and temporal representations allow an organism to navigate and manipulate the
+  environment. Following nature's lead, Morphognosis comprises an artificial neural network enhanced with a framework for organizing
+  sensory events into hierarchical spatial and temporal contexts.</p>
+  <p>The successful simulation of honey bee foraging behavior suggests future projects are worth undertaking:</p>
+  <ul>
+  <li style="margin-bottom:0px;">The metamorph structure bears a close resemblance to deep reinforcement learning training elements <dt-cite key="francois-lavet2018"></dt-cite>, suggesting the possibility of applying such learning to implement goal-seeking behavior.</li>
+  <li style="margin-bottom:0px;">The aggregation scheme that supports scalability is a simple histogram-like method for dimensionality reduction:</li>
+    <ul>
+    <li style="margin-bottom:0px;">The use of ANN dimensionality reduction techniques, such as autoencoding, might scale with higher information content.</li>
+    <li style="margin-bottom:0px;">The value of each neighborhood sector essentially represents a single centroid of sensory event values that have occurred in its space-time cube. An extension of this would be to retain multiple centroids within a sector, possibly weighted by frequency, increasing in number for higher level neighborhoods which encompass greater extents of space-time. This might increase the richness of behavioral variability while limiting information overload.</li>
+    </ul>
+  <li style="margin-bottom:0px;">The model is currently implemented in a cellular automaton spatial grid of cells. However, it is not inherently tethered to this platform and in fact may benefit from extending beyond it.</li>
+  <li style="margin-bottom:0px;">The configuration of the morphognostic is vital to successful performance. For the honey bee task, this was a manual design. This process should be amenable to optimization/evolution methods.</li>
+  </ul>
 </dt-article>
 
 <dt-appendix>
@@ -371,7 +387,7 @@
     author={Turing, A.},
     journal={Mind. LIX (236): 433-460},
     year={1950},
-    url={https://doi.org/10.1093/mind/LIX.236.433}
+    url={https://en.wikipedia.org/wiki/Turing_test}
   }
   @article{toffoli1987,
     title={Cellular Automata Machines: A New Environment for Modeling},
