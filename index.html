@@ -135,7 +135,7 @@
   <p>Introduced with several prototype tasks <dt-cite key="portegys2017b"></dt-cite>, Morphognosis has also modeled the locomotion and foraging of the
   C. elegans nematode worm <dt-cite key="portegys2018"></dt-cite> and the nest-building behavior of a pufferfish <dt-cite key="portegys2019"></dt-cite>. Morphognosis is a temporal
   extension of a spatial model of morphogenesis <dt-cite key="portegys2017a"></dt-cite>.</p>
-  <p><b>Morphognostics</b></p>
+  <h4 style="font-size: 18px;">Morphognostics</h4>
   <p>The basic structure of Morphognosis is a cone of sensory event recordings called a <i>morphognostic</i>, shown in Figure 1. At the apex of
   the cone are the most recent and nearby events. Receding from the apex are less recent and possibly more distant events. A morphognostic 
   can thus be viewed as a structure of progressively larger nested chunks of space-time knowledge that form a hierarchy of contexts. A set 
@@ -154,7 +154,7 @@
   <p>The value of a sector is a vector representing a histogram of the cell type densities contained within it:</p>
   <img src="images/equation3.png" style="position:relative; left:190px;" />
   <p><b><i>Morphognostic temporal neighborhoods</b></i></p>
-  <p>A neighborhood contains events that occur within a duration, which is a time window between the present and some time in the past. 
+  <p>A neighborhood contains events that occur within a duration, which is a time window between the present and some time in the past.
   Here is a possible method for calculating the duration of each neighborhood algorithmically:</p>
   <img src="images/algorithm1.png" style="position:relative; left:190px;" />
   <p><b><i>Morphognostic example</b></i></p>
@@ -165,7 +165,7 @@
   are variable. The rightmost panel continues this theme to a 27x27 neighborhood.</p>
   <img src="images/figure2.png" style="position:relative; left:190px;" />
   <p style="position:relative; left:50px;">Figure 2 - Cellular automaton implementation of Morphognosis.</p>
-  <p><b>Metamorphs</b></p>
+  <h4 style="font-size: 18px;">Metamorphs</h4>
   <p>In order to navigate and manipulate the environment, it is necessary for an agent to be able to respond to the environment. 
   A <i>metamorph</i> embodies a morphognostic?response rule. A set of metamorphs can be learned from a manual or programmed sequence of
   responses within a world.</p>
@@ -174,9 +174,67 @@
   <img src="images/figure3.png" style="position:relative; left:190px;" />
   <p style="position:relative; left:90px;">Figure 3 - Metamorph artificial neural network.</p>
   <h3>Honey bees</h3>
+  <h4 style="font-size: 18px;">Behavior</h4>
+  <p>A brief explanatory video:</p>
+  <iframe style="position:relative; left:190px;" width="560" height="315" src="https://www.youtube.com/embed/kUAv2QO7qYM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <p><b><i>Sensory and response capabilities</b></i></p>
+  <p style="margin-bottom:0px;">Senses:</p>
+  <p style="margin-bottom:0px;"><i>External state:</i></p>
+  <ul>
+  <li style="margin-bottom:0px;">Hive presence.</li>
+  <li style="margin-bottom:0px;">Nectar presence.</li>
+  <li style="margin-bottom:0px;">In-hive bee nectar signal: Orientation and distance to nectar.</li>
+  </ul>
+  <p style="margin-bottom:0px;"><i>Internal state:</i></p>
+  <ul>
+  <li style="margin-bottom:0px;">Orientation.</li>
+  <li style="margin-bottom:0px;">Carrying nectar.</li>
+  </ul>
+  <p style="margin-bottom:0px;">Responses:</p>
+  <ul>
+  <li style="margin-bottom:0px;">Wait.</li>
+  <li style="margin-bottom:0px;">Move forward.</li>
+  <li style="margin-bottom:0px;">Turn in compass directions: N, NE, E, SE, S, SW, W, NW.</li>
+  <li style="margin-bottom:0px;">Extract nectar.</li>
+  <li style="margin-bottom:0px;">Deposit nectar.</li>
+  <li style="margin-bottom:0px;">Display nectar distance.</li>
+  </ul>
+  <p><b><i>World</b></i></p>
+  <p>Figure 4 shows a graphical view that shows a hive (central yellow area), three bees, and three flowers. 
+  The topmost flower contains a drop of nectar to which the topmost bee, as best it can in a cellular grid, is 
+  indicating the direction and an approximate distance to, as indicated by the orientation of the bee and the 
+  length of the dotted line, respectively. The world is bounded by its edges, meaning bees cannot leave one edge 
+  and appear on the opposite side. An attempt to move beyond the edge results in a forced random change of direction.</p>
   <img src="images/figure4.png" style="position:relative; left:220px;" />
   <p style="position:relative; left:120px;">Figure 4 - Graphical view.</p>
-  <br>
+  <p><b><i>Bees</b></i></p>
+  <p>A bee occupies a single cell and is oriented in one of the eight compass directions and moves in the direction of its 
+  orientation. Only one bee is allowed per cell. An attempt to move to an occupied cell is disallowed. If multiple bees 
+  move to the same empty cell, a random decision is made to allow one bee to move. Bees can carry a single unit of nectar. 
+  Bees are initialized in the hive at random positions and orientations.</p>
+  <p><b><i>Flowers</b></i></p>
+  <p>A flower occupies a single cell outside of the hive at a random location. A flower's cell may also be occupied by a 
+  single visiting bee. Flowers are initialized with nectar, which after being extracted by a bee, will probabilistically 
+  either replenish after a specific time or immediately replenish. In the latter case, the bee will sense the presence of 
+  surplus nectar and will perform a dance to indicate its direction and distance once it returns to the hive. Flowers are 
+  initialized at random locations.</p>
+  <p><b><i>Foraging</b></i></p>
+  <p>The bees forage in two phases. In phase one, the nectar discovery phase, a bee flies about semi-randomly until it 
+  encounters a flower with nectar. Phase two is a deterministic process that deals with known nectar. Phase two is described below.</p>
+  <p>Once discovered, the bee extracts the nectar from the flower, flies directly to the hive and deposits the nectar in the hive. 
+  If the bee, after depositing the nectar, remembers that the flower contained "surplus" nectar, meaning more nectar than the bee 
+  could carry, it will commence a dance to indicate the direction and distance to the nectar to other bees in the hive, including 
+  itself. The direction is indicated by orienting toward the nectar. The directions are confined to the eight compass points. The 
+  distance is indicated by displaying a value for short or long distance. Both direction and distance can be sensed by bees in the hive. 
+  The graphical view draws a short or long dotted line as a visual representation.</p>
+  <p>Once a bee completes the dance, it and any other bees in the hive that sensed the dance will proceed in the direction of 
+  the nectar for the distance exhibited by the dance. If any of these bees encounters nectar en route, it will switch over to 
+  extracting the nectar and returning with it to the hive, possibly performing a dance there. If no nectar is encountered en 
+  route after traveling the indicated distance, the bee resumes phase one foraging.</p>
+  <p>If no surplus nectar was sensed after extracting the nectar, the bee will switch to phase one foraging immediately after 
+  depositing the nectar.</p>
+  <p><b><i>Scenario</b></i></p>
+  <p>Figures 5 through 11 present a graphical nectar foraging scenario.</p>
   <img src="images/figure5.png" style="position:relative; left:300px;" />
   <p>Figure 5 - Bee on right is moving down and is about to light on flower.</p>
   <br>
@@ -202,19 +260,71 @@
   <br>
   <img src="images/figure11.png" style="position:relative; left:300px;" />
   <p>Figure 11 - Both bees move toward nectar.</p>
-  <br>
+  <h4 style="font-size: 18px;">Implementation</h4>
+  <p><b><i>Modes</b></i></p>
+  <p>In <i>autopilot</i> mode, the bees forage programmatically. Autopilot mode generates metamorphs that are used 
+  to train the neural network, as shown in Figure 12. Since phase one foraging consists of semi-random movements, 
+  metamorphs are only generated in phase two, dealing with known nectar. Once trained, the bees can be switched to 
+  <i>metamorphNN</i> mode, in which the neural network drives phase two behavior. Phase one behavior remains programmatic in
+  metamorphNN mode. While in metamorphNN mode, new metamorphs are not accumulated.</p>
   <img src="images/figure12.png" style="position:relative; left:190px;" />
   <p style="position:relative; left:50px;">Figure 12 - Generating metamorphs to train the neural network.</p>
-  <br>
+  <p><b><i>Morphognostic</b></i></p>
+  <p>Each bee contains a morphognostic that maps its sensory inputs as spatial and temporal events that maintain its state in the environment.</p>
+  <p style="margin-bottom:0px;"><b>Events</b></p>
+  <p style="margin-bottom:0px;">There are 22 binary event variables:</p>
+  <ol>
+  <li style="margin-bottom:0px;"><i>hive presence</i></li>
+  <li style="margin-bottom:0px;"><i>nectar presence</i></li>
+  <li style="margin-bottom:0px;"><i>surplus nectar presence</i></li>
+  <li style="margin-bottom:0px;"><i>nectar dance direction north</i></li>
+  <li style="margin-bottom:0px;"><i>nectar dance direction northeast</i></li>
+  <li style="margin-bottom:0px;"><i>nectar dance direction east</i></li>
+  <li style="margin-bottom:0px;"><i>nectar dance direction southeast</i></li>
+  <li style="margin-bottom:0px;"><i>nectar dance direction south</i></li>
+  <li style="margin-bottom:0px;"><i>nectar dance direction southwest</i></li>
+  <li style="margin-bottom:0px;"><i>nectar dance direction west</i></li>
+  <li style="margin-bottom:0px;"><i>nectar dance direction northwest</i></li>
+  <li style="margin-bottom:0px;"><i>nectar dance distance long</i></li>
+  <li style="margin-bottom:0px;"><i>nectar dance distance short</i></li>
+  <li style="margin-bottom:0px;"><i>orientation north</i></li>
+  <li style="margin-bottom:0px;"><i>orientation northeast</i></li>
+  <li style="margin-bottom:0px;"><i>orientation east</i></li>
+  <li style="margin-bottom:0px;"><i>orientation southeast</i></li>
+  <li style="margin-bottom:0px;"><i>orientation south</i></li>
+  <li style="margin-bottom:0px;"><i>orientation southwest</i></li>
+  <li style="margin-bottom:0px;"><i>orientation west</i></li>
+  <li style="margin-bottom:0px;"><i>orientation northwest</i></li>
+  <li style="margin-bottom:0px;"><i>nectar carry</i></li>
+  </ol>
+  <p style="margin-bottom:0px;"><b>Neighborhoods</b></p>
+  <p>The morphognostic contains 4 3x3 neighborhoods, with durations and event mappings shown in Table 1.</p>
   <img src="images/table1.png" style="position:relative; left:300px;" />
   <p style="position:relative; left:150px;">Table 1 - Morphognostic neighborhoods.</p>
-  <br>
+  <p>Neighborhood 0 maps "immediate" events, such as orientation, that are of use only in the present, as denoted by the duration of 1.</p>
+  <p>Neighborhood 1 has a duration, 7, that allows a bee to retain knowledge of the presence of surplus nectar and/or observation of a 
+  dance indicating a short distance. The <i>nectar dance short distance</i> event, for example, allows the bee to "count" steps towards surplus nectar.
+  When the event expires due to the duration of the neighborhood it no longer affects the bee's behavior.</p>
+  <p>Neighborhood 2 serves the same purpose as neighborhood 1, except for <i>nectar dance long distance</i> event, for which the duration,
+  and thus steps, is greater than for the <i>nectar dance short distance</i> event.</p>
+  <p>Neighborhood 3, as well as all the other neighborhoods, track the presence of the hive as it is recorded in its 3x3 sectors 
+  for a long duration of 75. This allows the bee to locate the hive after possibly lengthy foraging and return with nectar. On the 
+  rare occasion that 75 steps are taken without returning to the hive, its location will be lost and the bee will be forced to return 
+  to the hive without nectar.</p>
+  <p>Morphognostic neighborhoods can be configured to either keep a density/average value of event values over its duration, 
+  or an on/off event value, meaning the event value is 1 if the event occurs at any time within the neighborhood's duration window. 
+  Although surrendering information, the on/off configuration is chosen for the honey bees to improve training time while retaining 
+  acceptable performance.</p>
+  <p style="margin-bottom:0px;"><b>Example</b></p>
+  <p>Figures 13a and 13b show the state of the bee selected by the red square for neighborhood 2 of its morphognostic.</p>
   <img src="images/figure13a.png" style="position:relative; left:350px;" />
   <p style="position:relative; left:30px;">Figure 13a - Bee after dance indicating surplus nectar. The next step is to proceed toward nectar.</p>
   <br>
   <img src="images/figure13b.png" style="position:relative; left:200px;" />
   <p style="position:relative; left:10px;">Figure 13b - Morphognostic neighborhood 2. At the center sector [1, 1] the <i>hive presence</i> and
   <i>nectar dance distance long</i> events are recorded. The location of the surplus nectar is recorded in sector [1, 0] and was used to orient toward the surplus nectar as part of the dance.</p>
+  <p><b><i>Code</b></i></p>
+  <p>The Java code is available in a GitHub <a href="https://github.com/morphognosis/HoneyBees">repository</a>.</p>
   <h2>Results</h2>
   <h3>Artificial neural network</h3>
   <p>The artificial neural network used was the MultiLayerPerceptron class in the <a href="https://www.cs.waikato.ac.nz/ml/weka">Weka</a> 3.8.3 machine learning library.</p>
