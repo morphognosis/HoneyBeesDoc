@@ -6,7 +6,7 @@
   title: "Morphognostic honey bees communicating nectar location through dance movements"
   description:
   authors:
-  - Thomas E. Portegys: http://tom.portegys.com/research.html
+  - Thomas E. Portegys: http://tom.portegys.com/research.html#honey_bees
   affiliations:
   - Dialectek: http://dialectek.com
 </script>
@@ -127,9 +127,112 @@
   of testing pertinent variables follows. A subsection also presents by way of comparison the performance of a recurrent neural network 
   (see LSTM performance).</p>
   <h2>Description</h2>
+  <p>This section first briefly describes the Morphognosis model. The honey bee behavior and implementation are described next.</p>
+  <h3>Morphognosis overview</h3>
+  <p><i>Morphognosis</i> (<i>morpho</i> = shape and <i>gnosis</i> = knowledge) aims to be a general method of capturing contextual information 
+  that can enhance the power of an artificial neural network (ANN). It provides a framework for organizing spatial and temporal sensory 
+  events and motor responses into a tractable format suitable for ANN training and usage.</p>
+  <p>Introduced with several prototype tasks <dt-cite key="portegys2017b"></dt-cite>, Morphognosis has also modeled the locomotion and foraging of the
+  C. elegans nematode worm <dt-cite key="portegys2018"></dt-cite> and the nest-building behavior of a pufferfish <dt-cite key="portegys2019"></dt-cite>. Morphognosis is a temporal
+  extension of a spatial model of morphogenesis <dt-cite key="portegys2017a"></dt-cite>.</p>
+  <p><b>Morphognostics</b></p>
+  <p>The basic structure of Morphognosis is a cone of sensory event recordings called a <i>morphognostic</i>, shown in Figure 1. At the apex of
+  the cone are the most recent and nearby events. Receding from the apex are less recent and possibly more distant events. A morphognostic 
+  can thus be viewed as a structure of progressively larger nested chunks of space-time knowledge that form a hierarchy of contexts. A set 
+  of morphognostics forms long-term memories that are learned by exposure to the environment. Scaling can be accomplished by aggregating 
+  event information. This means that more recent and nearby events are recorded in greater precision than events more distant in space and time.</p>
   <img src="images/figure1.png" style="position:relative; left:190px;" />
   <p style="position:relative; left:160px;">Figure 1 - Morphognostic event cone.</p>
+  <p>The following are possible definitions of the spatial and temporal morphognostic neighborhoods. The software is parameterized to 
+  permit many variations of these definitions.</p>
+  <p><b><i>Morphognostic spatial neighborhoods</b></i></p>
+  <p>A cell defines an elementary neighborhood:</p>
+  <img src="images/equation1.png" style="position:relative; left:190px;" />
+  <p>A non-elementary neighborhood consists of an <i>NxN</i> set of sectors surrounding a lower level neighborhood:</p>
+  <img src="images/equation2.png" style="position:relative; left:190px;" />
+  <p>Where <i>N</i> is an odd positive number.
+  <p>The value of a sector is a vector representing a histogram of the cell type densities contained within it:</p>
+  <img src="images/equation3.png" style="position:relative; left:190px;" />
+  <p><b><i>Morphognostic temporal neighborhoods</b></i></p>
+  <p>A neighborhood contains events that occur within a duration, which is a time window between the present and some time in the past. 
+  Here is a possible method for calculating the duration of each neighborhood algorithmically:</p>
+  <img src="images/algorithm1.png" style="position:relative; left:190px;" />
+  <p><b><i>Morphognostic example</b></i></p>
+  <p>Figure 2 is an example of a morphognostic implemented in a cellular automaton as a nested set of 3x3 neighborhoods and 
+  aggregated histograms of cell state value densities. On the left is the cellular automata grid that contains various cell state 
+  values. Moving right is a 3x3 neighborhood surrounding one of the cells of interest. This neighborhood is sensed in the immediate 
+  present. Moving right to the 9x9 neighborhood, each sector is a 3x3 neighborhood aggregated in space and time. Thus the densities 
+  are variable. The rightmost panel continues this theme to a 27x27 neighborhood.</p>
+  <img src="images/figure2.png" style="position:relative; left:190px;" />
+  <p style="position:relative; left:50px;">Figure 2 - Cellular automaton implementation of Morphognosis.</p>
+  <p><b>Metamorphs</b></p>
+  <p>In order to navigate and manipulate the environment, it is necessary for an agent to be able to respond to the environment. 
+  A <i>metamorph</i> embodies a morphognostic?response rule. A set of metamorphs can be learned from a manual or programmed sequence of
+  responses within a world.</p>
+  <p>Metamorphs are used to train an ANN, as shown in Figure 3, to learn responses associated with morphognostic inputs. During 
+  operation, the current morphognostic, representing the state of the environment, is input to the ANN to produce a learned response.</p>
+  <img src="images/figure3.png" style="position:relative; left:190px;" />
+  <p style="position:relative; left:90px;">Figure 3 - Metamorph artificial neural network.</p>
+  <h3>Honey bees</h3>
+  <img src="images/figure4.png" style="position:relative; left:220px;" />
+  <p style="position:relative; left:120px;">Figure 4 - Graphical view.</p>
+  <br>
+  <img src="images/figure5.png" style="position:relative; left:300px;" />
+  <p>Figure 5 - Bee on right is moving down and is about to light on flower.</p>
+  <br>
+  <img src="images/figure6.png" style="position:relative; left:300px;" />
+  <p>Figure 6 - Bee has extracted nectar from flower.</p>
+  <br>
+  <img src="images/figure7.png" style="position:relative; left:300px;" />
+  <p>Figure 7 - Bee with nectar returns directly to the hive to deposit nectar. 
+  It is also aware of surplus nectar remaining in the flower. 
+  The other bee is incidentally also in the hive.</p>
+  <br>
+  <img src="images/figure8.png" style="position:relative; left:300px;" />
+  <p>Figure 8 - Bee has deposited nectar in the hive. Since the bee knows there is surplus nectar, 
+  the bee performs the first part of dance: orient toward nectar.
+  If there was no surplus nectar the bee would resume foraging. The other bee is moving about the hive.</p>
+  <br>
+  <img src="images/figure9.png" style="position:relative; left:300px;" />
+  <p>Figure 9 - The second part of dance: indicate a short distance to nectar, as shown by the dotted line. 
+  The other bee has become aware of the direction and distance to the nectar.</p>
+  <br>
+  <img src="images/figure10.png" style="position:relative; left:300px;" />
+  <p>Figure 10 - Both bees respond to dance by orienting toward nectar.</p>
+  <br>
+  <img src="images/figure11.png" style="position:relative; left:300px;" />
+  <p>Figure 11 - Both bees move toward nectar.</p>
+  <br>
+  <img src="images/figure12.png" style="position:relative; left:190px;" />
+  <p style="position:relative; left:50px;">Figure 12 - Generating metamorphs to train the neural network.</p>
+  <br>
+  <img src="images/table1.png" style="position:relative; left:300px;" />
+  <p style="position:relative; left:150px;">Table 1 - Morphognostic neighborhoods.</p>
+  <br>
+  <img src="images/figure13a.png" style="position:relative; left:350px;" />
+  <p style="position:relative; left:30px;">Figure 13a - Bee after dance indicating surplus nectar. The next step is to proceed toward nectar.</p>
+  <br>
+  <img src="images/figure13b.png" style="position:relative; left:200px;" />
+  <p style="position:relative; left:10px;">Figure 13b - Morphognostic neighborhood 2. At the center sector [1, 1] the <i>hive presence</i> and
+  <i>nectar dance distance long</i> events are recorded. The location of the surplus nectar is recorded in sector [1, 0] and was used to orient toward the surplus nectar as part of the dance.</p>
   <h2>Results</h2>
+  <img src="images/table2.png" style="position:relative; left:350px;" />
+  <p style="position:relative; left:10px;">Table 2 - Number of metamorphs and training accuracy by varying flower and bee quantities.</p>
+  <br>
+  <img src="images/figure14.png" style="position:relative; left:250px;" />
+  <p style="position:relative; left:90px;">Figure 14 - Collected nectar for variations of flowers/bees.</p>
+  <br>
+  <img src="images/table3.png" style="position:relative; left:350px;" />
+  <p style="position:relative; left:10px;">Table 3 - Number of metamorphs and training accuracy by varying hidden neurons.</p>
+  <br>
+  <img src="images/figure15.png" style="position:relative; left:250px;" />
+  <p style="position:relative; left:80px;">Figure 15 - Collected nectar for variations of hidden neurons.</p>
+  <br>
+  <img src="images/table4.png" style="position:relative; left:350px;" />
+  <p style="position:relative; left:10px;">Table 4 - Number of metamorphs and training accuracy by varying hive radius.</p>
+  <br>
+  <img src="images/figure15.png" style="position:relative; left:250px;" />
+  <p style="position:relative; left:90px;">Figure 16 - Collected nectar for variations of hive radius.</p>
   <h2>Conclusion</h2>
   <p>The brain, a complex structure resulting from millions of years of evolution, can be viewed as a solution to problems posed by an
   environment existing in space and time. Internal spatial and temporal representations allow an organism to navigate and manipulate the
