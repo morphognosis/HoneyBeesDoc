@@ -216,23 +216,65 @@
   <p style="position:relative; left:10px;">Figure 13b - Morphognostic neighborhood 2. At the center sector [1, 1] the <i>hive presence</i> and
   <i>nectar dance distance long</i> events are recorded. The location of the surplus nectar is recorded in sector [1, 0] and was used to orient toward the surplus nectar as part of the dance.</p>
   <h2>Results</h2>
+  <h3>Artificial neural network</h3>
+  <p>The artificial neural network used was the MultiLayerPerceptron class in the <a href="https://www.cs.waikato.ac.nz/ml/weka">Weka</a> 3.8.3 machine learning library.</p>
+  <p>These parameters were used:</p>
+  <ul>
+  <li style="margin-bottom:0px;">learning rate = 0.1</li>
+  <li style="margin-bottom:0px;">momentum = 0.2</li>
+  <li style="margin-bottom:0px;">training epochs = 5000</li>
+  </ul>
+  <p>The morphognostic configured as previously described, four 3x3 neighborhoods, produces 234 binary inputs to the network.
+  There are 14 outputs representing the honey bee responses.</p>
+  <h3>Base level testing</h3>
+  <p>Neither a randomly generated responses nor an untrained network resulted in any nectar collected over 20,000 steps in a 3 
+  flower and 3 bee configuration.</p>
+  <h3>Test flower and bee quantities</h3>
+  <p>In order to determine how the system scales up, three variations of flowers and bees were tested: 3 flowers and bees, 
+  5 flowers and bees, and 7 flowers and bees. The amount of nectar collected was used as a success metric.</p>
+  <p>The world was set at 21x21 cells, and the hive at radius 3. Flowers were initialized with nectar at random locations outside of the 
+  hive. Bees were initialized randomly in the hive. The network was configured with 50 hidden neurons. Running the world for 20,000 
+  steps on autopilot generated a metamorph dataset to train the neural network on. Datasets were generated for 10 trials.</p>
+  <p>Table 2 shows the average training dataset size and training accuracy. Of note is the increase in the number of metamorphs as 
+  the world become more complex with additional flowers.</p>
   <img src="images/table2.png" style="position:relative; left:350px;" />
   <p style="position:relative; left:10px;">Table 2 - Number of metamorphs and training accuracy by varying flower and bee quantities.</p>
-  <br>
-  <img src="images/figure14.png" style="position:relative; left:250px;" />
+  <p>Figure 14 shows the results of running programmatically (Autopilot) vs. with the trained network (Morphognosis).
+  The network performs comparably.</p>
+  <img src="images/figure14.png" style="position:relative; left:230px;" />
   <p style="position:relative; left:90px;">Figure 14 - Collected nectar for variations of flowers/bees.</p>
-  <br>
+  <h3>Test hidden neurons</h3>
+  <p>In order to observe how the system is affected by the neural network size, three variation of hidden neuron quantities 
+  were tested: 25, 50, and 100.</p>
+  <p>Table 3 shows the average training dataset size and training accuracy.</p>
   <img src="images/table3.png" style="position:relative; left:350px;" />
   <p style="position:relative; left:10px;">Table 3 - Number of metamorphs and training accuracy by varying hidden neurons.</p>
-  <br>
-  <img src="images/figure15.png" style="position:relative; left:250px;" />
+  <p>Figure 15 shows the results, indicating that fewer hidden neurons are sufficient to achieve comparable performance.</p>
+  <img src="images/figure15.png" style="position:relative; left:230px;" />
   <p style="position:relative; left:80px;">Figure 15 - Collected nectar for variations of hidden neurons.</p>
-  <br>
+  <h3>Test hive radius</h3>
+  <p>In order to observe how the system is affected by the hive size, two variation of hive sizes were tested: radii of 2 and 3.</p>
+  <p>Table 4 shows the average training dataset size and training accuracy. Of note is the reduction in metamorphs with a smaller hive. 
+  This is likely due to fewer "trajectories" to and from the hive.</p>
   <img src="images/table4.png" style="position:relative; left:350px;" />
   <p style="position:relative; left:10px;">Table 4 - Number of metamorphs and training accuracy by varying hive radius.</p>
-  <br>
-  <img src="images/figure15.png" style="position:relative; left:250px;" />
+  <p>Figure 16 shows the results, indicating that a smaller hive reduces the amount of nectar collected. 
+  A possible contributing factor for this is congestion due to bee collisions.</p>
+  <img src="images/figure15.png" style="position:relative; left:230px;" />
   <p style="position:relative; left:90px;">Figure 16 - Collected nectar for variations of hive radius.</p>
+  <h3>LSTM performance</h3>
+  <p>A key ability of a honey bee is to be able to track the location of the hive as it forages. This allows it to return to 
+  the hive with nectar. As a check of the ability of an unaugmented recurrent neural network (RNN) to perform this as a dead 
+  reckoning task, a Long Short Term Memory (LSTM) recurrent network <dt-cite key="hochreiter1997"></dt-cite> was trained given sequences
+   between 5 and 15 steps consisting of random orientation changes and forward movements probabilistically identical to those used 
+   by the honey bees. The output is the direction to the starting position. Despite variations in the network capacity, the 
+   training accuracy averaged approximately 30%, which was about the same as a random guess.</p>
+  <p>It is important to note a distinction between the training and testing regimens of RNNs, including LSTM, and Morphognosis. 
+  RNNs are trained with batches of sequences. Each sequence, possibly having a variable length, has a beginning and end. A test 
+  inputs a sequence to the trained network for classification and prediction. Morphognosis, in contrast, having its temporal 
+  (and spatial) state embedded in the input, is not bounded by sequences: a honey bee generates a set of training metamorphs as 
+  it forages continuously, with no delimiting breaks. This more closely resembles an animal learning situation in nature.</p>
+  <p>The LSTM network used is in the <a href="https://github.com/JANNLab/JANNLab">JANN</a> 0.10 machine learning library.</p>
   <h2>Conclusion</h2>
   <p>The brain, a complex structure resulting from millions of years of evolution, can be viewed as a solution to problems posed by an
   environment existing in space and time. Internal spatial and temporal representations allow an organism to navigate and manipulate the
