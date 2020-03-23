@@ -23,7 +23,7 @@
   exemplars, and exposing only the external input-output of these behaviors to the Morphognosis learning 
   algorithm, a hive of artificial bees can be generated that forage as their biological counterparts do.
   <p>
-  <h3>Keywords: Honey bee foraging dance, artificial animal intelligence, Morphognosis, cellular automaton, artificial neural network.</h3></h2>
+  <h3>Keywords: Honey bee foraging dance, Morphognosis, artificial animal intelligence, machine learning, artificial neural network, cellular automaton.</h3></h2>
   <dt-byline></dt-byline>
   <h2>Introduction</h2>
   <p>Honey bees, <i>apis mellifera</i>, are fascinating social insects. They are also smart, even able to count and add <dt-cite key="fox2019"></dt-cite>.
@@ -37,7 +37,7 @@
   It will be shown that simulating nectar foraging is a difficult task for unaugmented machine learning methods, but with the support 
   of the spatial and temporal contextual information that Morphognosis provides, it can be accomplished.</p>
   <p>As a disclaimer, it should be noted that this project is not intended to offer new or additional findings about honey bees. Its goal 
-  is to simulate a biologically inspired behavior in a dynamic environment. If the convergence of nature and artifice at the behavioral
+  is to use machine learning to simulate a biologically inspired behavior in a dynamic environment. If the convergence of nature and artifice at the behavioral
   level provides insights about biological mechanisms, that would be serendipitous.</p>
   <p>Honey bees have been the focus and inspiration for a number of simulation initiatives:</p>
   <ul>
@@ -141,42 +141,42 @@
   can thus be viewed as a structure of progressively larger nested chunks of space-time knowledge that form a hierarchy of contexts. A set 
   of morphognostics forms long-term memories that are learned by exposure to the environment. Scaling can be accomplished by aggregating 
   event information. This means that more recent and nearby events are recorded in greater precision than events more distant in space and time.</p>
-  <img src="images/figure1.png" style="position:relative; left:190px;" />
-  <p style="position:relative; left:160px;">Figure 1 - Morphognostic event cone.</p>
-  <p>The following are possible definitions of the spatial and temporal morphognostic neighborhoods. The software is parameterized to 
+  <div><center><img src="images/figure1.png"/></center></div>
+  <div><p><center>Figure 1 - Morphognostic event cone.</center></p></div>
+  <p>The following are possible definitions of the spatial and temporal morphognostic neighborhoods. The software is parameterized to
   permit many variations of these definitions.</p>
   <p><b><i>Morphognostic spatial neighborhoods</b></i></p>
   <p>A cell defines an elementary neighborhood:</p>
-  <img src="images/equation1.png" style="position:relative; left:190px;" />
+  <div><img src="images/equation1.png" /></div>
   <p>A non-elementary neighborhood consists of an <i>NxN</i> set of sectors surrounding a lower level neighborhood:</p>
-  <img src="images/equation2.png" style="position:relative; left:190px;" />
+  <div><img src="images/equation2.png" /></div>
   <p>Where <i>N</i> is an odd positive number.
   <p>The value of a sector is a vector representing a histogram of the cell type densities contained within it:</p>
-  <img src="images/equation3.png" style="position:relative; left:190px;" />
+  <div><img src="images/equation3.png" /></div>
   <p><b><i>Morphognostic temporal neighborhoods</b></i></p>
   <p>A neighborhood contains events that occur within a duration, which is a time window between the present and some time in the past.
   Here is a possible method for calculating the duration of each neighborhood algorithmically:</p>
-  <img src="images/algorithm1.png" style="position:relative; left:190px;" />
+  <div><img src="images/algorithm1.png" /></div>
   <p><b><i>Morphognostic example</b></i></p>
   <p>Figure 2 is an example of a morphognostic implemented in a cellular automaton as a nested set of 3x3 neighborhoods and 
   aggregated histograms of cell state value densities. On the left is the cellular automata grid that contains various cell state 
   values. Moving right is a 3x3 neighborhood surrounding one of the cells of interest. This neighborhood is sensed in the immediate 
   present. Moving right to the 9x9 neighborhood, each sector is a 3x3 neighborhood aggregated in space and time. Thus the densities 
   are variable. The rightmost panel continues this theme to a 27x27 neighborhood.</p>
-  <img src="images/figure2.png" style="position:relative; left:190px;" />
-  <p style="position:relative; left:50px;">Figure 2 - Cellular automaton implementation of Morphognosis.</p>
+  <div><center><img src="images/figure2.png" /></center></div>
+  <div><p><center>Figure 2 - Cellular automaton implementation of Morphognosis.</center></p></div>
   <h4 style="font-size: 18px;">Metamorphs</h4>
   <p>In order to navigate and manipulate the environment, it is necessary for an agent to be able to respond to the environment. 
   A <i>metamorph</i> embodies a morphognostic?response rule. A set of metamorphs can be learned from a manual or programmed sequence of
   responses within a world.</p>
   <p>Metamorphs are used to train an ANN, as shown in Figure 3, to learn responses associated with morphognostic inputs. During 
   operation, the current morphognostic, representing the state of the environment, is input to the ANN to produce a learned response.</p>
-  <img src="images/figure3.png" style="position:relative; left:190px;" />
-  <p style="position:relative; left:90px;">Figure 3 - Metamorph artificial neural network.</p>
+  <div><center><img src="images/figure3.png" /></center></div>
+  <div><p><center>Figure 3 - Metamorph artificial neural network.</center></p></div>
   <h3>Honey bees</h3>
   <h4 style="font-size: 18px;">Behavior</h4>
   <p>A brief explanatory video:</p>
-  <iframe style="position:relative; left:190px;" width="560" height="315" src="https://www.youtube.com/embed/kUAv2QO7qYM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div><center><iframe width="560" height="315" src="https://www.youtube.com/embed/kUAv2QO7qYM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center></div>
   <p><b><i>Sensory and response capabilities</b></i></p>
   <p style="margin-bottom:0px;">Senses:</p>
   <p style="margin-bottom:0px;"><i>External state:</i></p>
@@ -205,8 +205,8 @@
   indicating the direction and an approximate distance to, as indicated by the orientation of the bee and the 
   length of the dotted line, respectively. The world is bounded by its edges, meaning bees cannot leave one edge 
   and appear on the opposite side. An attempt to move beyond the edge results in a forced random change of direction.</p>
-  <img src="images/figure4.png" style="position:relative; left:220px;" />
-  <p style="position:relative; left:120px;">Figure 4 - Graphical view.</p>
+  <div><center><img src="images/figure4.png" /></center></div>
+  <div><center><p>Figure 4 - Graphical view.</p></center></div>
   <p><b><i>Bees</b></i></p>
   <p>A bee occupies a single cell and is oriented in one of the eight compass directions and moves in the direction of its 
   orientation. Only one bee is allowed per cell. An attempt to move to an occupied cell is disallowed. If multiple bees 
@@ -235,31 +235,25 @@
   depositing the nectar.</p>
   <p><b><i>Scenario</b></i></p>
   <p>Figures 5 through 11 present a graphical nectar foraging scenario.</p>
-  <img src="images/figure5.png" style="position:relative; left:300px;" />
-  <p>Figure 5 - Bee on right is moving down and is about to light on flower.</p>
-  <br>
-  <img src="images/figure6.png" style="position:relative; left:300px;" />
-  <p>Figure 6 - Bee has extracted nectar from flower.</p>
-  <br>
-  <img src="images/figure7.png" style="position:relative; left:300px;" />
-  <p>Figure 7 - Bee with nectar returns directly to the hive to deposit nectar. 
+  <div><center><img src="images/figure5.png" /></center></div>
+  <div><center><p>Figure 5 - Bee on right is moving down and is about to light on flower.</p></center></div>
+  <div><center><img src="images/figure6.png" /></center></div>
+  <div><center><p>Figure 6 - Bee has extracted nectar from flower.</p></center></div>
+  <div><center><img src="images/figure7.png" /></center></div>
+  <p>Figure 7 - Bee with nectar returns directly to the hive to deposit nectar.
   It is also aware of surplus nectar remaining in the flower. 
   The other bee is incidentally also in the hive.</p>
-  <br>
-  <img src="images/figure8.png" style="position:relative; left:300px;" />
-  <p>Figure 8 - Bee has deposited nectar in the hive. Since the bee knows there is surplus nectar, 
+  <div><center><img src="images/figure8.png" /></center></div>
+  <p>Figure 8 - Bee has deposited nectar in the hive. Since the bee knows there is surplus nectar,
   the bee performs the first part of dance: orient toward nectar.
   If there was no surplus nectar the bee would resume foraging. The other bee is moving about the hive.</p>
-  <br>
-  <img src="images/figure9.png" style="position:relative; left:300px;" />
-  <p>Figure 9 - The second part of dance: indicate a short distance to nectar, as shown by the dotted line. 
+  <div><center><img src="images/figure9.png" /></center></div>
+  <p>Figure 9 - The second part of dance: indicate a short distance to nectar, as shown by the dotted line.
   The other bee has become aware of the direction and distance to the nectar.</p>
-  <br>
-  <img src="images/figure10.png" style="position:relative; left:300px;" />
-  <p>Figure 10 - Both bees respond to dance by orienting toward nectar.</p>
-  <br>
-  <img src="images/figure11.png" style="position:relative; left:300px;" />
-  <p>Figure 11 - Both bees move toward nectar.</p>
+  <div><center><img src="images/figure10.png" /></center></div>
+  <div><center><p>Figure 10 - Both bees respond to dance by orienting toward nectar.</p></center></div>
+  <div><center><img src="images/figure11.png" /></center></div>
+  <div><center><p>Figure 11 - Both bees move toward nectar.</p></center></div>
   <h4 style="font-size: 18px;">Implementation</h4>
   <p><b><i>Modes</b></i></p>
   <p>In <i>autopilot</i> mode, the bees forage programmatically. Autopilot mode generates metamorphs that are used 
@@ -267,8 +261,8 @@
   metamorphs are only generated in phase two, dealing with known nectar. Once trained, the bees can be switched to 
   <i>metamorphNN</i> mode, in which the neural network drives phase two behavior. Phase one behavior remains programmatic in
   metamorphNN mode. While in metamorphNN mode, new metamorphs are not accumulated.</p>
-  <img src="images/figure12.png" style="position:relative; left:190px;" />
-  <p style="position:relative; left:50px;">Figure 12 - Generating metamorphs to train the neural network.</p>
+  <div><center><img src="images/figure12.png" /></center></div>
+  <div><center><p>Figure 12 - Generating metamorphs to train the neural network.</p></center></div>
   <p><b><i>Morphognostic</b></i></p>
   <p>Each bee contains a morphognostic that maps its sensory inputs as spatial and temporal events that maintain its state in the environment.</p>
   <p style="margin-bottom:0px;"><b>Events</b></p>
@@ -299,8 +293,8 @@
   </ol>
   <p style="margin-bottom:0px;"><b>Neighborhoods</b></p>
   <p>The morphognostic contains 4 3x3 neighborhoods, with durations and event mappings shown in Table 1.</p>
-  <img src="images/table1.png" style="position:relative; left:300px;" />
-  <p style="position:relative; left:150px;">Table 1 - Morphognostic neighborhoods.</p>
+  <div><center><img src="images/table1.png" /></center></div>
+  <div><center><p>Table 1 - Morphognostic neighborhoods.</p></center></div>
   <p>Neighborhood 0 maps "immediate" events, such as orientation, that are of use only in the present, as denoted by the duration of 1.</p>
   <p>Neighborhood 1 has a duration, 7, that allows a bee to retain knowledge of the presence of surplus nectar and/or observation of a 
   dance indicating a short distance. The <i>nectar dance short distance</i> event, for example, allows the bee to "count" steps towards surplus nectar.
@@ -317,11 +311,10 @@
   acceptable performance.</p>
   <p style="margin-bottom:0px;"><b>Example</b></p>
   <p>Figures 13a and 13b show the state of the bee selected by the red square for neighborhood 2 of its morphognostic.</p>
-  <img src="images/figure13a.png" style="position:relative; left:350px;" />
-  <p style="position:relative; left:30px;">Figure 13a - Bee after dance indicating surplus nectar. The next step is to proceed toward nectar.</p>
-  <br>
-  <img src="images/figure13b.png" style="position:relative; left:200px;" />
-  <p style="position:relative; left:10px;">Figure 13b - Morphognostic neighborhood 2. At the center sector [1, 1] the <i>hive presence</i> and
+  <div><center><img src="images/figure13a.png" /></center></div>
+  <p>Figure 13a - Bee after dance indicating surplus nectar. The next step is to proceed toward nectar.</p>
+  <div><center><img src="images/figure13b.png" /></center></div>
+  <p>Figure 13b - Morphognostic neighborhood 2. At the center sector [1, 1] the <i>hive presence</i> and
   <i>nectar dance distance long</i> events are recorded. The location of the surplus nectar is recorded in sector [1, 0] and was used to orient toward the surplus nectar as part of the dance.</p>
   <p><b><i>Code</b></i></p>
   <p>The Java code is available in a GitHub <a href="https://github.com/morphognosis/HoneyBees">repository</a>.</p>
@@ -347,31 +340,31 @@
   steps on autopilot generated a metamorph dataset to train the neural network on. Datasets were generated for 10 trials.</p>
   <p>Table 2 shows the average training dataset size and training accuracy. Of note is the increase in the number of metamorphs as 
   the world become more complex with additional flowers.</p>
-  <img src="images/table2.png" style="position:relative; left:350px;" />
-  <p style="position:relative; left:10px;">Table 2 - Number of metamorphs and training accuracy by varying flower and bee quantities.</p>
+  <div><center><img src="images/table2.png" /></center></div>
+  <p>Table 2 - Number of metamorphs and training accuracy by varying flower and bee quantities.</p>
   <p>Figure 14 shows the results of running programmatically (Autopilot) vs. with the trained network (Morphognosis).
   The network performs comparably.</p>
-  <img src="images/figure14.png" style="position:relative; left:230px;" />
-  <p style="position:relative; left:90px;">Figure 14 - Collected nectar for variations of flowers/bees.</p>
+  <div><center><img src="images/figure14.png" /></center></div>
+  <div><center><p>Figure 14 - Collected nectar for variations of flowers/bees.</p></center></div>
   <h3>Test hidden neurons</h3>
   <p>In order to observe how the system is affected by the neural network size, three variation of hidden neuron quantities 
   were tested: 25, 50, and 100.</p>
   <p>Table 3 shows the average training dataset size and training accuracy.</p>
-  <img src="images/table3.png" style="position:relative; left:350px;" />
-  <p style="position:relative; left:10px;">Table 3 - Number of metamorphs and training accuracy by varying hidden neurons.</p>
+  <div><center><img src="images/table3.png" /></center></div>
+  <p>Table 3 - Number of metamorphs and training accuracy by varying hidden neurons.</p>
   <p>Figure 15 shows the results, indicating that fewer hidden neurons are sufficient to achieve comparable performance.</p>
-  <img src="images/figure15.png" style="position:relative; left:230px;" />
-  <p style="position:relative; left:80px;">Figure 15 - Collected nectar for variations of hidden neurons.</p>
+  <div><center><img src="images/figure15.png" /></center></div>
+  <div><center><p>Figure 15 - Collected nectar for variations of hidden neurons.</p></center></div>
   <h3>Test hive radius</h3>
   <p>In order to observe how the system is affected by the hive size, two variation of hive sizes were tested: radii of 2 and 3.</p>
   <p>Table 4 shows the average training dataset size and training accuracy. Of note is the reduction in metamorphs with a smaller hive. 
   This is likely due to fewer "trajectories" to and from the hive.</p>
-  <img src="images/table4.png" style="position:relative; left:350px;" />
-  <p style="position:relative; left:10px;">Table 4 - Number of metamorphs and training accuracy by varying hive radius.</p>
+  <div><center><img src="images/table4.png" /></center></div>
+  <p>Table 4 - Number of metamorphs and training accuracy by varying hive radius.</p>
   <p>Figure 16 shows the results, indicating that a smaller hive reduces the amount of nectar collected. 
   A possible contributing factor for this is congestion due to bee collisions.</p>
-  <img src="images/figure15.png" style="position:relative; left:230px;" />
-  <p style="position:relative; left:90px;">Figure 16 - Collected nectar for variations of hive radius.</p>
+  <div><center><img src="images/figure15.png" /></center></div>
+  <div><center><p>Figure 16 - Collected nectar for variations of hive radius.</p></center></div>
   <h3>LSTM performance</h3>
   <p>A key ability of a honey bee is to be able to track the location of the hive as it forages. This allows it to return to 
   the hive with nectar. As a check of the ability of an unaugmented recurrent neural network (RNN) to perform this as a dead 
